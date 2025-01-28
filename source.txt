@@ -1,6 +1,6 @@
 "Strange Bedroom" by Aurelia Peterson Rajalingam
 
-Release along with an interpreter, a website, cover art ("A Strange Bedroom") and the source text.
+Release along with an interpreter, a website, and the source text.
 
 
 Chapter 1 - Setting Up Time Limit
