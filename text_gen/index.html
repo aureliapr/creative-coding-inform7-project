@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracery + P5.js + jQuery</title>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="p5.min.js"></script>
+    <script src="tracery.min.js"></script>
+</head>
+<body>
+    <script>
+        let generatedText = "Loading...";
+        
+        function setup() {
+            createCanvas(800, 800);
+            textSize(24);
+            textAlign(CENTER, CENTER);
+            noLoop();
+            loadGrammar();
+        }
+        
+        function draw() {
+            background(220);
+            text(generatedText, width / 2, height / 2, width - 40, height - 40);
+        }
+        
+        function loadGrammar() {
+            $.getJSON("grammar.json", function(data) {
+                console.log("Loaded grammar:", data);
+                let grammar = tracery.createGrammar(data);
+                generatedText = grammar.flatten("#origin#");
+                redraw();
+            }).fail(function() {
+                console.error("Error loading grammar.json:", textStatus, errorThrown);
+                generatedText = "Failed to load grammar.json";
+                redraw();
+            });
+        }
+    </script>
+</body>
+</html>
