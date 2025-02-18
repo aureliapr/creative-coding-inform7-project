@@ -50,6 +50,18 @@
             letter-spacing: 0.05em;
         }
 
+        #image-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2em auto;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        #image-container:hover {
+            opacity: 1;
+        }
+
         #output {
             font-size: 1.2em;
             line-height: 1.8;
@@ -94,6 +106,7 @@
 <body>
     <div class="container">
         <h1>Sherlock Holmes</h1>
+        <div id="image-container" class="fade-in"></div>
         <div id="output">Loading observations from Dr. Watson's journal...</div>
     </div>
 
@@ -116,12 +129,25 @@
 
         function generateNew() {
             if (grammar) {
+                // Generate and update text
                 const outputDiv = document.getElementById('output');
                 outputDiv.classList.remove('fade-in');
                 void outputDiv.offsetWidth; // Trigger reflow
                 outputDiv.classList.add('fade-in');
                 const output = grammar.flatten('#origin#');
                 outputDiv.innerHTML = output.replace(/\n/g, '<br>');
+
+                // Generate and update SVG
+                const imageContainer = document.getElementById('image-container');
+                imageContainer.classList.remove('fade-in');
+                void imageContainer.offsetWidth; // Trigger reflow
+                imageContainer.classList.add('fade-in');
+                const svgOutput = grammar.flatten('#image#');
+                // Extract only the SVG content
+                const svgMatch = svgOutput.match(/<svg[\s\S]*?<\/svg>/);
+                if (svgMatch) {
+                    imageContainer.innerHTML = svgMatch[0];
+                }
             }
         }
 
