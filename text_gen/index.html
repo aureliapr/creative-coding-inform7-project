@@ -29,25 +29,11 @@
             position: relative;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 2px solid #1a1a1a;
-            pointer-events: none;
-        }
-
         h1 {
             font-family: 'Playfair Display', serif;
             color: #d4d4d4;
             text-align: center;
             font-size: 2.5em;
-            margin-bottom: 1em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: 0.05em;
         }
 
         #image-container {
@@ -70,27 +56,22 @@
             margin: 1em 0;
             background: #2a2a2a;
             border: 1px solid #1a1a1a;
-            min-height: 100px;
-            position: relative;
         }
 
-        #output::before, #output::after {
-            content: '"';
-            font-family: 'Playfair Display', serif;
-            font-size: 3em;
-            color: #4a4a4a;
-            position: absolute;
-            opacity: 0.5;
+        footer {
+            text-align: center;
+            padding: 1em;
+            color: #808080;
+            font-size: 0.9em;
+            margin-top: 2em;
+            border-top: 1px solid #1a1a1a;
+            width: 100%;
+            background: #2a2a2a;
         }
 
-        #output::before {
-            top: 0;
-            left: 10px;
-        }
-
-        #output::after {
-            bottom: -20px;
-            right: 10px;
+        footer p {
+            margin: 0;
+            font-style: italic;
         }
 
         @keyframes fadeIn {
@@ -110,12 +91,15 @@
         <div id="output">Loading observations from Dr. Watson's journal...</div>
     </div>
 
+    <footer>
+        <p>Generated text inspired by Arthur Conan Doyle's works. Source: Project Gutenberg.</p>
+    </footer>
+
     <script src="jquery-3.7.1.min.js"></script>
     <script src="tracery.min.js"></script>
     <script>
         let grammar = null;
 
-        // Load the grammar file
         fetch('grammar.json')
             .then(response => response.json())
             .then(data => {
@@ -127,7 +111,7 @@
                 console.error('Error:', error);
             });
 
-        function generateNew() {
+            function generateNew() {
             if (grammar) {
                 // Generate and update text
                 const outputDiv = document.getElementById('output');
